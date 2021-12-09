@@ -44,7 +44,7 @@ List 3: [QUINE.ListYbis.txt](https://github.com/martinreynaert/HitPaRank/files/7
 List 4: [QUINE.ListZ.txt](https://github.com/martinreynaert/HitPaRank/files/7661799/QUINE.ListZ.txt)
 
 List 5:
-# Output
+# Output Working mode 'A' (Read: 'All' or 'Main working mode')
 
 Output is in tab-separated columns. A header to each output file identifies the column's contents.
 
@@ -68,7 +68,15 @@ The HitPaRank output files underlying this study are in this archive: [QUINETWIG
 # Contents of Output List A/
 The contents of Output List A/ are 23 tab separated columns. On the basis of the headers to the columns we describe their individual contents.
 
-**9999** : The header to the first column is the rather arbitrarily large number: 9,999. This is to ensure that when the full output file is numerically sorted on this column, the header will remain on top, the value being larger than any that is likely ever to have been calculated for any of the paragraph, given any corpus.
+We give the headers to the columns in bold. The examples further discussed are based on the following example paragraph from the QUINE output. The actual tabs in the output have here been replaced by a space enclosed pipe symbol, i.e. ' | ' for reasons of clarity:
+
+```20  |  YYYNN  |  P_013705  |  B_0134P_0018  |  QUINE-A-1981d-Grammar_Truth_and_Logic-V0_5.txt.p.18  |  U:3:1,Y:2:1Y:3:3,Ybis:3:2  |  channeling[1] grammar[1] logical[1] logician[1] mathematician[1] scientific[1] truth[2] -- --  |  146  |  7  |  4.79  |  8  |  87.50  |  U:3:1  |  channeling[1]  |  Y:2:1 Y:3:3  |  grammar[1] logical[1] logician[1] mathematician[1]  |  Ybis:3:2  |  scientific[1] truth[2]  |  n.a.  |  --  |  n.a.  |  --  |  LEM:for the latter-day logician , logical regimentation of grammar be standard procedure . -pron- have note the motivation of one such reform , and -pron- be characteristic of many . other of -pron- reform serve to resolve structural ambiguity ; other serve to economize on construction . -pron- interest in grammatical structure be oneside : -pron- be interested in how -pron- channel truth condition . if a grammatical reform make for a more copious channeling of truth condition and cause no complication in other quarter , -pron- be happy to adopt -pron- . -pron- adopt -pron- not as a reform to be impose on society , but as a technical by-language to expedite scientific inference . the shift be the same in principle as program a computer , and the same , for that matter , as the mathematician 's habitual recourse to plan notation .   |  TOK:For the latter-day logician , logical regimentation of grammar is standard procedure . We have noted the motivation of one such reform , and it is characteristic of many . Others of his reforms serve to resolve structural ambiguities ; others serve to economize on constructions . His interest in grammatical structure is onesided : he is interested in how it channels truth conditions . If a grammatical reform makes for a more copious channeling of truth conditions and causes no complications in other quarters , he is happy to adopt it . He adopts it not as a reform to be imposed on society , but as a technical by-language to expedite scientific inference . The shift is the same in principle as programming a computer , and the same , for that matter , as the mathematician 's habitual recourse to planned notations . ```
+
+A block of data as the example above in fact constitutes a single line in the actual HitPaRank output file.
+
+**The column information, per header**
+
+**9999** : The header to the first column is the rather arbitrarily large number: 9,999. This is to ensure that when the full output file is numerically and descendingly sorted on this column, the header will remain on top, the value being larger than any that is likely ever to have been calculated for any of the paragraph, given any corpus.
 
 The numbers in this column are in fact derived from the data in the column headed 'CollectedHitRankSummary'. After we have there described the contents, we will give the formula to arrive at the value per paragraph in this 'ranking' column.
 
@@ -82,11 +90,19 @@ Example: 'YYYNN': the paragraph gave hits on lists U, Y and Ybis, but none on li
 
 **Paragraph_ID** : This is a sequentially produced ID based on the number of the retrieved paragraph, meant for easy reference. 
 
-Example: 'P_000010': the tenth paragraph retrieved from the corpus.
+Example: 'P_013705': the thirteen thousand seven hundred and fifth paragraph retrieved from the corpus.
+
+**Book_Paragraph_ID** : This is an alternative easy reference short ID for the paragraph that tells the number of the 'book' the paragraph is from and per book sequentially numbers the paragraphs retrieved.
+
+Example: 'B_0134P_0018' : This paragraph is from the 134th. book in the QUINE corpus, and is the 18th. paragraph to have been retrieved on the basis of the five lists.
+
+Works in QUINE (the corpus) come ordered according to their year of publication, possibly followed by a lower case letter (e.g. 'a' or 'b' or 'c', etc.). This identifies each separate volume. A single volume is usually divided over several FoLiA XML files, e.g. per chapter or other subsection. The 'book' number here applies to all the separate files that constitute the original printed volume.
+
+This column immediately would give stats on the number of paragraphs retrieved per book. We surmise it may also facilitate work into studying how the author's ideas developed over time.
 
 **Paragraph_Reference** : This is the actual reference to the paragraph in the whole corpus, specifying the full input file name supplemented by the sequence number of the paragraph within that file. 
 
-Example: (the actual reference to the FoLiA version of 'P_000010': 'QUINE-A-1933a-A_Theorem_in_the_Calculus_of_Classes-V0_5.txt.p.10'. First we have 'QUINE': the name for our corpus. Next: 'A': Willard Van Orman Quine was the author of this paragraph. The book was the first ('a') to be published by him in 1933. Follows the (possibly shortened or slightly modified) title of the work. 'V0_5' signifies this is version 0.5 of the QUINE corpus. The 'txt' signifies the original input file that was converted to FoLiA XML was a plain text file. Finally we get 'p.', i.e. paragraph, and its sequential number, here: '10'.
+Example: 'QUINE-A-1981d-Grammar_Truth_and_Logic-V0_5.txt.p.18'. First we have 'QUINE': the name for our corpus. Next: 'A': Willard Van Orman Quine was the author of this paragraph. The book was the fourth ('d') to be published by him in 1981. Follows the (possibly shortened or slightly modified) title of the work. 'V0_5' signifies this is version 0.5 of the QUINE corpus. The 'txt' signifies the original input file that was converted to FoLiA XML was a plain text file. Finally we get 'p.', i.e. paragraph, and its sequential number, here: '18'.
 
 **CollectedHitRankSummary** : This is a collation of the information gathered about the hits on the 5 lists.
 
@@ -94,13 +110,13 @@ Example: 'U:3:1,Y:2:1Y:3:3,Ybis:3:2' (source: P_013705 or QUINE-A-1981d-Grammar_
 
 **CollectedHits** : This collates the hit terms from the five lists. The 'empty-field' label '--' signifies there were no hits in a particular list.
 
-Example (same source as example for previous column): 'channeling[1] grammar[1] logical[1] logician[1] mathematician[1] scientific[1] truth[2] -- --'. The numbers between square brackets give the number of times the term was found in the paragraph: only the term 'truth' occurred twice in this paragraph.
+Example: 'channeling[1] grammar[1] logical[1] logician[1] mathematician[1] scientific[1] truth[2] -- --'. The numbers between square brackets give the number of times the term was found in the paragraph: only the term 'truth' occurred twice in this paragraph.
 
-**#TokensInParagraph** : a simple count of the number of tokens within the paragraph.
+**TokensInParagraph** : a simple count of the number of tokens within the paragraph.
 
 **TotalUniquedScore** : Counting each retrieved term just once, given the example above for 'CollectedHits', we arrive at '7' for this score.
 
-**TotalUniquedScorePercentage** : this is the percentage of the number for TotalUniquedScore versus the number of #TokensInParagraph.
+**TotalUniquedScorePercentage** : this is the percentage of the number for TotalUniquedScore versus the number of TokensInParagraph.
 
 **TotalHitCount** : Summing the frequencies of occurrence for the retrieved terms, we arrive at '8' for this score, given the example above for 'CollectedHits'.
 
@@ -131,3 +147,61 @@ The next 10 columns detail, in two columns per List, the same information as des
 **Paragraph_(lemmatized)** : The actual paragraph in lemmatized form extracted from the FoLiA XML corpus file. All statistics reported in this file are derived from this lemmatized text layer in the FoLiA XML. For this study, the lemmatizer used was Spacy. For clear identification, the paragraph is preceded by the lable: 'LEM:'.
 
 **Paragraph_(tokenized)** : The actual paragraph in tokenized form extracted from the FoLiA XML corpus file. For this study, the lemmatizer used was UCTO. For clear identification, the paragraph is preceded by the lable: 'TOK:'.
+
+# Contents of Output Lists B/ and C/
+
+We think the information given for List A/ together with the self-explanatory nature of presentation of the data in these Lists should suffice.
+
+# Output Working mode 'F' (Read: 'Frequency Lists')
+
+In this mode HitParank requires access to the FoLiA XML corpus only. 
+
+It builds four ngram frequency lists, one each for word unigrams up to word fourgrams. The file names get the extension '.[1-4]gram.tsv'. These are currently written to the same directory the script reads the FoLiA XML files from. Spaces in the multigrams are represented by underscores, i.e. '_'.
+
+**Usage** : $ perl HitPaRank.V1.pl /reddata/EIDEAS/QUINE/QUINEV05FOLIASPACY folia.xml
+
+# Output Working mode 'E' (Read: 'Extend' or 'Expand' tentative expert term lists)
+
+Producing the final term lists was in fact a three step process.
+
+First, the experts produced lists of what they considered relevant terms for their research queries. These broke down into five categories, hence the five lists, finally. These first version lists had wilcards, for terms that likely had multiple word forms in the QUINE corpus.
+
+***The five initial lists, input for Mode 'E'***
+
+List 1:
+
+List 2:
+
+List 3:
+
+List 4:
+
+List 5:
+
+Second, these five lists served as input for the 'E' mode of HitPaRank and produced the following five expanded lists, with extra annotations to appraise the experts of the outcome of the expansion step and to guide them in their final decision-taking over whether or not to retain the expanded terms in the lists. They were further provided with lists of likely (pseudo-)scientific they might have overlooked in building their first version lists or might not even be aware of Quine ever mentioned them in his writing. These were lists drawn from the corpus frequency lists for words ending e.g. in -ology, -ism, etc.
+
+***The five expanded lists, input for for the experts***
+
+List 1:
+
+List 2:
+
+List 3:
+
+List 4:
+
+List 5:
+
+Third, after their final decision-taking round, we finally ended up with the following five manually vetted and curated lists that served as input to Mode 'A' of HitPaRank.
+
+***The five final lists, input for Mode 'A'***
+
+List 1:
+
+List 2:
+
+List 3:
+
+List 4:
+
+List 5:
