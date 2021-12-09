@@ -178,7 +178,7 @@ List 4:
 
 List 5:
 
-Second, these five lists served as input for the 'E' mode of HitPaRank and produced the following five expanded lists, with extra annotations to appraise the experts of the outcome of the expansion step and to guide them in their final decision-taking over whether or not to retain the expanded terms in the lists. They were further provided with lists of likely (pseudo-)scientific they might have overlooked in building their first version lists or might not even be aware of Quine ever mentioned them in his writing. These were lists drawn from the corpus frequency lists for words ending e.g. in -ology, -ism, etc.
+Second, these five lists served as input for the 'E' mode of HitPaRank and produced the following five expanded lists, with extra annotations to appraise the experts of the outcome of the expansion step and to guide them in their final decision-taking over whether or not to retain the expanded terms in the lists. They were further provided with lists of likely (pseudo-)scientific they might have overlooked in building their first version lists or might not even be aware of Quine ever mentioned them in his writing. These were lists drawn from the corpus frequency lists for words ending e.g. in -olog*, -ics, -ism, -omy.
 
 ***The five expanded lists, input for for the experts***
 
@@ -192,7 +192,7 @@ List 4:
 
 List 5:
 
-Third, after their final decision-taking round, we finally ended up with the following five manually vetted and curated lists that served as input to Mode 'A' of HitPaRank.
+Third, after their final decision-taking round, we finally ended up with the following five manually vetted and curated lists that served as input to Mode 'A' of HitPaRank. 
 
 ***The five final lists, input for Mode 'A'***
 
@@ -205,3 +205,5 @@ List 3:
 List 4:
 
 List 5:
+
+These final lists are also available in spreadsheet format from the Companion Github Repository, where more detailed information is also provided.
