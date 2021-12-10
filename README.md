@@ -18,7 +18,6 @@ The script currently has three modes of working:
 
 3/ Extraction of the paragraphs that give hits on any of the query term lists and gathering statistics on these actual paragraphs extracted, on the individual paragraph level and over the entire corpus. Parameter: 'A'.
 
-Table x gives some examples and more detailed information on the actual statistics collected.
 # Input
 To work, this Perl prototype requires
 
@@ -30,17 +29,19 @@ B/ Five lists of expert selected terms to query the corpus paragraphs for and to
 
 We provide the five lists used in this study, in the format actually used by HitPaRank, below.
 
+# Usage Working mode 'A'
+
 # Output Working mode 'A' (Read: 'All' or 'Main working mode')
 
 Output is in tab-separated columns. A header to each output file identifies the column's contents.
 
 The HitPaRank script in mode 3/ delivers three output files: 
 
-A/ Extracted paragraphs. Output file extension: *.Paragraphs.tsv
+A/ Extracted paragraphs. Output file extension: `*.Paragraphs.tsv`
 
-B/ Condensed paragraph info. Output file extension: *.RankCounts.tsv
+B/ Condensed paragraph info. Output file extension: `*.RankCounts.tsv`
 
-C/ Summary of corpus-wide statistics. Output file extension: *.CorpusSummary.tsv
+C/ Summary of corpus-wide statistics. Output file extension: `*.CorpusSummary.tsv`
 
 The prefix for the output files needs to be specified at run-time.
 # Statistics reported in the output
@@ -88,7 +89,7 @@ Works in QUINE (the corpus) come ordered according to their year of publication,
 
 This column immediately would give stats on the number of paragraphs retrieved per book. We surmise it may also facilitate work into studying how the author's ideas developed over time.
 
-This column too is a later addition to HitPaRank, not available at the time of the study.
+This column is a later addition to HitPaRank, not available at the time of the study.
 
 **Paragraph_Reference** : This is the actual reference to the paragraph in the whole corpus, specifying the full input file name supplemented by the sequence number of the paragraph within that file. 
 
@@ -146,58 +147,86 @@ The next 10 columns detail, in two columns per List, the same information as des
 
 We think the information given for List A/ together with the self-explanatory nature of presentation of the data in these Lists should suffice.
 
+# Usage Working mode 'F'
+
+`$ perl HitPaRank.V1.pl /reddata/EIDEAS/QUINE/QUINEV05FOLIASPACY folia.xml F`
+
 # Output Working mode 'F' (Read: 'Frequency Lists')
 
 In this mode HitParank requires access to the FoLiA XML corpus only. 
 
-It builds four ngram frequency lists, one each for word unigrams up to word fourgrams. The file names get the extension '.[1-4]gram.tsv'. These are currently written to the same directory the script reads the FoLiA XML files from. Spaces in the multigrams are represented by underscores, i.e. '_'.
+It builds four ngram frequency lists, one each for word unigrams up to word fourgrams. Spaces in the multigrams are represented by underscores, i.e. '_'.
 
-**Usage** : $ perl HitPaRank.V1.pl /reddata/EIDEAS/QUINE/QUINEV05FOLIASPACY folia.xml
+The prefix assigned to the output files is that of the last segment of the path where the corpus resides, i.e. the name of the directory the FoLiA XML files are in. The file names get the extension `.[1-4]gram.tsv`. These files are currently written to the same directory the script reads the FoLiA XML files from.
+
+We implemented this mode as the scripts needs to build the ngrams for the texts anyway, for Mode 'A'. We do not recommend its use for larger FoLiA XML corpora. The QUINE corpus runs to about 2 million word tokens and building the ngram frequency lists on our hardware requires about 16 minutes. There are better solutions available, in particular 'FoLiA-stats'[^1].  
+
+# Usage Working mode 'E'
+
+`perl /path/QUINE.TWIG.122.pl /path/QUINEV05FOLIASPACY folia.xml E /path/QUINE.ListY.Ranked.Codes.txt /path/QUINE.ListX.ranked.txt /path/QUINE.ListU.ranked.txt /path/QUINE.ListYbis.ranked.txt /path/QUINE.ListZ.ranked.txt /path/QUINEV05FOLIASPACY/QUINEV05FOLIASPACY.1gram.tsv /path/QUINEV05FOLIASPACY/QUINEV05FOLIASPACY.2gram.tsv /path/QUINEV05FOLIASPACY/QUINEV05FOLIASPACY.3gram.tsv /path/QUINEV05FOLIASPACY/QUINEV05FOLIASPACY.4gram.tsv`
+
+The output files will land in the same directory as the five input lists are read from.
+
+Note: Although not used in this mode, the first parameter, i.e. the path to the corpus, nevertheless is required to be stated by the current script.
 
 # Output Working mode 'E' (Read: 'Extend' or 'Expand' tentative expert term lists)
 
 Producing the final term lists was in fact a three step process.
 
-First, the experts produced lists of what they considered relevant terms for their research queries. These broke down into five categories, hence the five lists, finally. These first version lists had wilcards, for terms that likely had multiple word forms in the QUINE corpus.
+First, the experts produced lists of what they considered relevant terms for their research queries. These broke down into five categories, hence the five lists, finally. Four of these first version lists had wilcards, for terms that likely had multiple word forms in the QUINE corpus. In the case of the main list, ListY, wildcards have been replaced by simple codes, to refine and restrict retrieval of matching variants. 
+
+Encoding scheme for list Y: An underscore followed by a capital letter 'A' for 'Match All', 'B' for 'Match only at the Beginning, 'E' for 'Match only at the End'. These are attached to the appropriate terms in the list. However, as it turned out along the way, this scheme did not deliver the expected results and the script was adapted to simply turn these codes into wildcards again.
+
+Note: these initial lists are tab-separated: 'word tab rank', e.g. from ListU: 'mesmerism tab 3'. Also, spaces are not rendered as underscores, but are just spaces.
 
 ***The five initial lists, input for Mode 'E'***
 
-List 1:
+List 1: [QUINE.ListY.Ranked.Codes.txt](https://github.com/martinreynaert/HitPaRank/files/7693261/QUINE.ListY.Ranked.Codes.txt)
 
-List 2:
+List 2: [QUINE.ListX.ranked.txt](https://github.com/martinreynaert/HitPaRank/files/7693265/QUINE.ListX.ranked.txt)
 
-List 3:
+List 3: [QUINE.ListU.ranked.txt](https://github.com/martinreynaert/HitPaRank/files/7693271/QUINE.ListU.ranked.txt)
 
-List 4:
+List 4: [QUINE.ListYbis.ranked.txt](https://github.com/martinreynaert/HitPaRank/files/7693272/QUINE.ListYbis.ranked.txt)
 
-List 5:
+List 5: [QUINE.ListZ.ranked.txt](https://github.com/martinreynaert/HitPaRank/files/7693276/QUINE.ListZ.ranked.txt)
 
 Second, these five lists served as input for the 'E' mode of HitPaRank and produced the following five expanded lists, with extra annotations to appraise the experts of the outcome of the expansion step and to guide them in their final decision-taking over whether or not to retain the expanded terms in the lists. They were further provided with lists of likely (pseudo-)scientific they might have overlooked in building their first version lists or might not even be aware of Quine ever mentioned them in his writing. These were lists drawn from the corpus frequency lists for words ending e.g. in -olog*, -ics, -ism, -omy.
 
+Note: these expanded lists are not tab-separated, a tilde, i.e. '~' replaces the tabs. Also, spaces are rendered as underscores. They also have a third column, repeating the matching input in case that has a wildcard. This is in order to show the experts on the basis of which pattern the particular expanded form was retrieved.
+
 ***The five expanded lists, input for for the experts***
 
-List 1:
+List 1: [QUINE.ListY.Ranked.Codes.expanded.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693282/QUINE.ListY.Ranked.Codes.expanded.tildes.txt)
 
-List 2:
+List 2: [QUINE.ListX.ranked.expanded.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693284/QUINE.ListX.ranked.expanded.tildes.txt)
 
-List 3:
+List 3: [QUINE.ListU.ranked.expanded.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693285/QUINE.ListU.ranked.expanded.tildes.txt)
 
-List 4:
+List 4: [QUINE.ListYbis.ranked.expanded.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693287/QUINE.ListYbis.ranked.expanded.tildes.txt)
 
-List 5:
+List 5: [QUINE.ListZ.ranked.expanded.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693290/QUINE.ListZ.ranked.expanded.tildes.txt)
 
 Third, after their final decision-taking round, we finally ended up with the following five manually vetted and curated lists that served as input to Mode 'A' of HitPaRank. 
 
+These lists have the manually assigned extension: `.FinalExpandedRevised.tildes.txt`.
+
+Note: these expanded lists are also not tab-separated, a tilde, i.e. '~' replaces the tabs and spaces are again rendered as underscores.
+
 ***The five final lists, input for Mode 'A'***
 
-List 1:
+List 1: [QUINE.ListY.FinalExpandedRevised.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693294/QUINE.ListY.FinalExpandedRevised.tildes.txt)
 
-List 2:
+List 2: [QUINE.ListX.FinalExpandedRevised.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693296/QUINE.ListX.FinalExpandedRevised.tildes.txt)
 
-List 3:
+List 3: [QUINE.ListU.FinalExpandedRevised.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693299/QUINE.ListU.FinalExpandedRevised.tildes.txt)
 
-List 4:
+List 4: [QUINE.ListYbis.FinalExpandedRevised.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693303/QUINE.ListYbis.FinalExpandedRevised.tildes.txt)
 
-List 5:
+List 5: [QUINE.ListZ.FinalExpandedRevised.tildes.txt](https://github.com/martinreynaert/HitPaRank/files/7693305/QUINE.ListZ.FinalExpandedRevised.tildes.txt)
 
-These final lists are also available in spreadsheet format from the Companion Github Repository, where more detailed information is also provided.
+These final lists are also available in spreadsheet format from the Companion Github Repository, where far more detailed information is also provided.
+
+MRE - 20211210
+
+[^1] FoLiA-stats is one of the C++ tools available from https://github.com/LanguageMachines/foliautils. It is a production-grade, fast and well-developed word ngram frequency builder.
