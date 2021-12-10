@@ -29,21 +29,7 @@ Unfortunately, for reasons of copyright, we cannot here share the corpus used in
 B/ Five lists of expert selected terms to query the corpus paragraphs for and to serve to rank the paragraphs based on the collected hit statistics.
 
 We provide the five lists used in this study, in the format actually used by HitPaRank, below.
-# The five expert-built lists
-These lists are also available in spreadsheet format from the Companion Github Repository, where more detailed information is also provided.
 
-List 1: [QUINE.ListX.txt](https://github.com/martinreynaert/HitPaRank/files/7661663/QUINE.ListX.txt)
-
-
-List 2: [QUINE.ListY.txt](https://github.com/martinreynaert/HitPaRank/files/7661791/QUINE.ListY.txt)
-
-
-List 3: [QUINE.ListYbis.txt](https://github.com/martinreynaert/HitPaRank/files/7661796/QUINE.ListYbis.txt)
-
-
-List 4: [QUINE.ListZ.txt](https://github.com/martinreynaert/HitPaRank/files/7661799/QUINE.ListZ.txt)
-
-List 5:
 # Output Working mode 'A' (Read: 'All' or 'Main working mode')
 
 Output is in tab-separated columns. A header to each output file identifies the column's contents.
@@ -80,7 +66,9 @@ A block of data as the example above in fact constitutes a single line in the ac
 
 The numbers in this column are in fact derived from the data in the column headed 'CollectedHitRankSummary'. After we have there described the contents, we will give the formula to arrive at the value per paragraph in this 'ranking' column.
 
-The higher the value in this column, the more hits, or better, the more higher ranked hits were found in the entire paragraph. So, we expect the user to mainly want to sort this column numerically and descendingly.
+The higher the value in this column, the more hits, or better: the more higher ranked hits, were found in the entire paragraph. So, we expect the user to mainly want to sort this column numerically and descendingly.
+
+In fact, this column was not yet available at the time we wrote the paper. Its value towards this kind of research as yet needs to be assessed by the experts, but the layman writing this description here is impressed by what he sees.
 
 One might e.g. use this column to rank only the paragraphs selected by e.g. focusing only on a particular pattern of List hits in the second column, headed 'LABEL:UYYbisXZ'. Or one might query the table for a particular pattern, e.g. 'naturali*' (as the experts did for Research Question 1 in the paper), in the relevant Term List's column, and then rank these. In fact, we think the possibilities are primarily limited by the user's command-line skills, given the user consults this output file on the command-line. 
 
@@ -100,6 +88,8 @@ Works in QUINE (the corpus) come ordered according to their year of publication,
 
 This column immediately would give stats on the number of paragraphs retrieved per book. We surmise it may also facilitate work into studying how the author's ideas developed over time.
 
+This column too is a later addition to HitPaRank, not available at the time of the study.
+
 **Paragraph_Reference** : This is the actual reference to the paragraph in the whole corpus, specifying the full input file name supplemented by the sequence number of the paragraph within that file. 
 
 Example: 'QUINE-A-1981d-Grammar_Truth_and_Logic-V0_5.txt.p.18'. First we have 'QUINE': the name for our corpus. Next: 'A': Willard Van Orman Quine was the author of this paragraph. The book was the fourth ('d') to be published by him in 1981. Follows the (possibly shortened or slightly modified) title of the work. 'V0_5' signifies this is version 0.5 of the QUINE corpus. The 'txt' signifies the original input file that was converted to FoLiA XML was a plain text file. Finally we get 'p.', i.e. paragraph, and its sequential number, here: '18'.
@@ -107,6 +97,10 @@ Example: 'QUINE-A-1981d-Grammar_Truth_and_Logic-V0_5.txt.p.18'. First we have 'Q
 **CollectedHitRankSummary** : This is a collation of the information gathered about the hits on the 5 lists.
 
 Example: 'U:3:1,Y:2:1Y:3:3,Ybis:3:2' (source: P_013705 or QUINE-A-1981d-Grammar_Truth_and_Logic-V0_5.txt.p.18): There was one hit with rank '3' in List U, one hit with rank '2' and 3 with rank '3' in List Y and 2 hits with rank '3' in List Ybis.
+
+The grading score reported in the first column, i.e. under header '9999' is straightforwardly obtained by summing the results of multiplying the ranks with the frequencies observed for all the lists.
+
+Example: So here we get: (3*1) + (2*1) + (3*3) + (3*2) = 20.
 
 **CollectedHits** : This collates the hit terms from the five lists. The 'empty-field' label '--' signifies there were no hits in a particular list.
 
