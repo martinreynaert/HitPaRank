@@ -1,7 +1,7 @@
 # HitPaRank
 HitPaRank was developed as a tool to help select text units towards building a ground truth for concept-modeling which is domain expert controlled and geared towards replicability. It uses domain expert built lists of terms relevant to particular research questions applicable to a specific text corpus to help locate, extract and rank paragraphs from the corpus. It also helps defining and refining the actual term lists, adapting the theoretically relevant terms to the actual real-world forms as present in the corpus. It is currently geared towards working on corpora available in FoLiA XML format (https://proycon.github.io/folia/).
 
-The name stands for: '(Query) Hit Paragraph Ranker'.
+The name stands for: '(Query) Hit Ranker'.
 
 # Background
 HitPaRank was developed in the context of the paper "Expert Concept-Modeling Ground Truth Construction for Word Embeddings Evaluation in Concept-Focused Domains", (https://aclanthology.org/2020.coling-main.586/).
@@ -17,6 +17,11 @@ The script currently has three modes of working:
 2/ Checking the wild card versions of the query terms deemed relevant to the researchers as regards the research question against the actual ngrams extracted from the corpus by 1/ and returning an expanded list of query terms and their actual corpus frequencies. In fact, this mode also shrinks the wildcard version of the lists in that non-occurring terms are not returned. Parameter: 'E'.
 
 3/ Extraction of the paragraphs that give hits on any of the query term lists and gathering statistics on these actual paragraphs extracted, on the individual paragraph level and over the entire corpus. Parameter: 'A'.
+
+# Dependency
+This prototype Perl script requires the following module:
+
+`XML::Twig`
 
 # Input
 To work, this Perl prototype requires
@@ -47,7 +52,7 @@ The prefix for the output files needs to be specified at run-time.
 # Statistics reported in the output
 Based on the statistics regarding each of the list hits, we precede each output line - each line containing all the data gathered for one paragraph - with a 5 letter Y/N code. This code provides a quick overview of which lists provided hits and allows for quick and easy selection of those paragraphs that do or do not contain any of the search terms. 
 
-Further, for each of the five lists an overview is provided of the number of hits per rank, followed by the uniqued list terms that provided the hits. In so far that query terms may actually reoccur within the lists as part of either compounds or ngrams, i.e. multi-word expressions, multiple hits produced for a single paragraph are uniqued and counted as single hits towards to final hit score. Likewise terms fully re-occurring in a single paragraphs. 
+Further, for each of the five lists an overview is provided of the number of hits per rank, followed by the uniqued list terms that provided the hits. In so far that query terms may actually reoccur within the lists as part of either compounds or ngrams, i.e. multi-word expressions, multiple hits produced for a single paragraph are uniqued and counted as single hits towards to final hit score. Likewise terms fully re-occurring in a single paragraph. 
 
 Nevertheless the total hit score is also tallied and this score contrasted to the uniqued hit score allows us to also calculate a hit type-token ratio for each paragraph. This we also provide to the expert-annotators as a help towards deciding on the overall ranking within the retrieved paragraphs and to assign their relevance score to each paragraph retained for further annotation of `grade of relevance'.
 # Actual output files for this study
@@ -63,7 +68,7 @@ A block of data as the example above in fact constitutes a single line in the ac
 
 **The column information, per header**
 
-**9999** : The header to the first column is the rather arbitrarily large number: 9,999. This is to ensure that when the full output file is numerically and descendingly sorted on this column, the header will remain on top, the value being larger than any that is likely ever to have been calculated for any of the paragraph, given any corpus.
+**9999** : The header to the first column is the rather arbitrarily large number: 9,999. This is to ensure that when the full output file is numerically and descendingly sorted on this column, the header will remain on top, the value being larger than any that is likely ever to have been calculated for any of the paragraphs, given any corpus.
 
 The numbers in this column are in fact derived from the data in the column headed 'CollectedHitRankSummary'. After we have there described the contents, we will give the formula to arrive at the value per paragraph in this 'ranking' column.
 
@@ -101,13 +106,15 @@ Example: 'U:3:1,Y:2:1Y:3:3,Ybis:3:2' (source: P_013705 or QUINE-A-1981d-Grammar_
 
 The grading score reported in the first column, i.e. under header '9999' is straightforwardly obtained by summing the results of multiplying the ranks with the frequencies observed for all the lists.
 
-Example: So here we get: (3*1) + (2*1) + (3*3) + (3*2) = 20.
+Example: So here we get: (3\*1) + (2\*1) + (3\*3) + (3\*2) = 20.
 
 **CollectedHits** : This collates the hit terms from the five lists. The 'empty-field' label '--' signifies there were no hits in a particular list.
 
 Example: 'channeling[1] grammar[1] logical[1] logician[1] mathematician[1] scientific[1] truth[2] -- --'. The numbers between square brackets give the number of times the term was found in the paragraph: only the term 'truth' occurred twice in this paragraph.
 
 **TokensInParagraph** : a simple count of the number of tokens within the paragraph.
+
+Example : The example paragraph has 8 running words of texts, i.e. 8 word tokens.
 
 **TotalUniquedScore** : Counting each retrieved term just once, given the example above for 'CollectedHits', we arrive at '7' for this score.
 
@@ -139,9 +146,9 @@ The next 10 columns detail, in two columns per List, the same information as des
 
 **Unique_Hits_Z**
 
-**Paragraph_(lemmatized)** : The actual paragraph in lemmatized form extracted from the FoLiA XML corpus file. All statistics reported in this file are derived from this lemmatized text layer in the FoLiA XML. For this study, the lemmatizer used was Spacy. For clear identification, the paragraph is preceded by the lable: 'LEM:'.
+**Paragraph_(lemmatized)** : The actual paragraph in lemmatized form extracted from the FoLiA XML corpus file. All statistics reported in this file are derived from this lemmatized text layer in the FoLiA XML. For this study, the lemmatizer used was Spacy. For clear identification, the paragraph is preceded by the label: 'LEM:'.
 
-**Paragraph_(tokenized)** : The actual paragraph in tokenized form extracted from the FoLiA XML corpus file. For this study, the lemmatizer used was UCTO. For clear identification, the paragraph is preceded by the lable: 'TOK:'.
+**Paragraph_(tokenized)** : The actual paragraph in tokenized form extracted from the FoLiA XML corpus file. For this study, the lemmatizer used was UCTO. For clear identification, the paragraph is preceded by the label: 'TOK:'.
 
 # Contents of Output Lists B/ and C/
 
