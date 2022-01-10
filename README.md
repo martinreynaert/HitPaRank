@@ -178,7 +178,7 @@ This file provides a summary of the statistics of the corpus, the actual numbers
 
 # Output Working mode 'F' (Read: 'Frequency Lists')
 
-In this mode HitParank requires access to the FoLiA XML corpus only. 
+In this mode HitParank requires access to the FoLiA XML corpus only. It is currently hard-coded to use the lemmatized text layer in order to build its frequency lists.
 
 It builds four ngram frequency lists, one each for word unigrams up to word fourgrams. Spaces in the multigrams are represented by underscores, i.e. '_'.
 
